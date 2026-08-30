@@ -1,0 +1,25 @@
+[package]
+name = "pinpoint"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "Excellent presentations for hackers"
+publish = false
+
+[dependencies]
+adw.workspace = true
+async-signal.workspace = true
+cairo-rs.workspace = true
+futures-lite.workspace = true
+glycin.workspace = true
+gst.workspace = true
+gtk.workspace = true
+libc.workspace = true
+sourceview.workspace = true
+pangocairo.workspace = true
+pinpoint-core = { path = "../pinpoint-core" }
+rsvg.workspace = true
+serde_json.workspace = true

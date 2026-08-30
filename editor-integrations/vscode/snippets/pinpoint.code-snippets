@@ -1,0 +1,7 @@
+{
+  "Slide": { "prefix": "slide", "body": ["-- [$1]", "$2"], "description": "Start a Pinpoint slide" },
+  "Duration": { "prefix": "duration", "body": ["[duration=${1:10}]"], "description": "Slide duration in seconds" },
+  "Speaker note": { "prefix": "note", "body": ["# $1"], "description": "Speaker-view note" },
+  "Visual description": { "prefix": "alt", "body": ["#@alt: $1"], "description": "Visual description for the speaker view" },
+  "Bold": { "prefix": "bold", "body": ["<b>$1</b>"], "description": "Pango bold markup" }
+}

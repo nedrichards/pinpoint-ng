@@ -1,0 +1,25 @@
+#!/usr/bin/env pinpoint
+[font=Sans Bold 72px]
+[text-color=white]
+[text-align=center]
+[center]
+[transition=page-curl]
+[stage-color=#1c3264]
+--
+PAGE CURL
+Forward: Right arrow
+Backward: Left arrow
+-- [stage-color=#a51d2d]
+The original
+2 second curl
+-- [stage-color=#176b52]
+Front and back
+navigation
+-- [transition=page-curl-both] [stage-color=#673ab7]
+PAGE CURL BOTH
+1 second, 15 degrees
+-- [stage-color=#c64600]
+Both pages
+curl together
+-- [stage-color=#37474f]
+End of fixture

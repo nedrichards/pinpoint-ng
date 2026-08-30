@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.nedrichards.pinpoint</id>
+  <name>Pinpoint</name>
+  <summary>Excellent presentations for hackers</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LGPL-2.1-or-later</project_license>
+  <developer id="com.nedrichards">
+    <name>Nick Richards</name>
+  </developer>
+  <description>
+    <p>Pinpoint helps hackers give excellent presentations. Write the core ideas in concise plain text, arrange them in the editor of your choice, and tune the result while Pinpoint reloads it live.</p>
+    <p>Keep the audience focused with big text and strong imagery. Add styled text, images, scalable graphics, videos, speaker notes, rehearsed timings, transitions, and commands when the talk needs them.</p>
+    <p>Compose inside Pinpoint with a theme-aware source editor, slide outline, diagnostics, completion, and a live presentation-quality preview, or keep using any external plain-text editor.</p>
+  </description>
+  <releases>
+    <release version="0.3.0" date="2026-08-25">
+      <description>
+        <p>Reimplemented in Rust on GTK 4 while retaining the Pinpoint presentation format and polished GNOME workflow.</p>
+      </description>
+    </release>
+  </releases>
+  <url type="homepage">https://github.com/nedrichards/pinpoint-ng</url>
+  <url type="bugtracker">https://github.com/nedrichards/pinpoint-ng/issues</url>
+  <url type="vcs-browser">https://github.com/nedrichards/pinpoint-ng</url>
+  <provides>
+    <binary>pinpoint</binary>
+    <mediatype>application/x-pinpoint</mediatype>
+  </provides>
+  <branding>
+    <color type="primary" scheme_preference="light">#9141ac</color>
+    <color type="primary" scheme_preference="dark">#613583</color>
+  </branding>
+  <content_rating type="oars-1.1"/>
+  <launchable type="desktop-id">com.nedrichards.pinpoint.desktop</launchable>
+</component>

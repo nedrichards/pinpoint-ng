@@ -1,0 +1,14 @@
+[text-color=white]
+[transition-duration=1000]
+
+-- [stage-color=#204060] [transition=page-curl] [transition-mode=out]
+Outgoing page curl
+--
+[stage-color=#603020] [transition=page-curl] [transition-mode=in]
+Incoming page curl
+--
+[stage-color=#285030] [transition=page-curl-both] [transition-mode=both]
+Angled two-page curl
+--
+[stage-color=#302050] [transition=fade]
+Fade remains on the shared route

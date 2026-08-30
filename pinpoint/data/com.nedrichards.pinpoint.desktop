@@ -1,0 +1,18 @@
+[Desktop Entry]
+Name=Pinpoint
+Comment=Excellent presentations for hackers
+Exec=pinpoint %f
+Icon=com.nedrichards.pinpoint
+Terminal=false
+Type=Application
+Categories=Office;Presentation;
+MimeType=application/x-pinpoint;
+StartupNotify=true
+DBusActivatable=false
+Keywords=presentation;slides;talk;plain-text;
+Actions=NewPresentation;
+
+[Desktop Action NewPresentation]
+Name=New Presentation
+Exec=pinpoint --edit
+Icon=document-new-symbolic

@@ -1,0 +1,14 @@
+#!/usr/bin/env pinpoint
+[stage-color=#112233]
+[font=Sans 48px]
+[duration=12]
+[bottom]
+-- [top-right] [text-align=center] [white]
+Hello <b>world</b>
+#First note
+#Second note
+-- [photo.JPG] [fill] [bg-position=bottom-right] [no-markup]
+Image slide
+-- [transition=slide-left] [command=printf hello]
+\-- this is text, not a separator
+\# this is text, not a note

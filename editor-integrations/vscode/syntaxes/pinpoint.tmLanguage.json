@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Pinpoint",
+  "scopeName": "text.pinpoint",
+  "patterns": [
+    { "include": "#notes" },
+    { "include": "#separator" },
+    { "include": "#settings" },
+    { "include": "#markup" }
+  ],
+  "repository": {
+    "notes": { "patterns": [{ "name": "comment.line.number-sign.pinpoint", "match": "^#.*$" }] },
+    "separator": { "patterns": [{ "name": "keyword.control.separator.pinpoint", "match": "^-+(?:\\s|$).*" }] },
+    "settings": { "patterns": [{ "name": "meta.setting.pinpoint", "begin": "\\[", "end": "\\]", "patterns": [
+      { "name": "entity.other.attribute-name.pinpoint", "match": "[A-Za-z-]+(?==)" },
+      { "name": "string.unquoted.pinpoint", "match": "=[^\\]]+" }
+    ] }] },
+    "markup": { "patterns": [{ "name": "entity.name.tag.pinpoint", "match": "</?(?:markup|span|b|big|i|s|sub|sup|small|tt|u)(?=[\\s>])" }] }
+  }
+}

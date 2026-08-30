@@ -1,0 +1,43 @@
+[package]
+name = "pinpoint-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+pinpoint-core = { path = "../pinpoint-core" }
+
+[[bin]]
+name = "presentation"
+path = "fuzz_targets/presentation.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "legacy_transition"
+path = "fuzz_targets/legacy_transition.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "source_analyzer"
+path = "fuzz_targets/source_analyzer.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "duration_writeback"
+path = "fuzz_targets/duration_writeback.rs"
+test = false
+doc = false
+bench = false
+
+[workspace]
+members = ["."]

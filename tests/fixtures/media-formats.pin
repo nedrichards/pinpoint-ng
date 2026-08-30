@@ -1,0 +1,25 @@
+[transition-duration=0]
+
+-- [media-formats/pinpoint-vp8-vorbis.webm]
+WebM VP8 and Vorbis
+
+-- [media-formats/pinpoint-h264-baseline-aac.mp4]
+MP4 H.264 Constrained Baseline and AAC-LC
+
+-- [media-formats/pinpoint-h264-main.mov]
+QuickTime H.264 Main
+
+-- [media-formats/pinpoint-h264-high.mp4]
+MP4 H.264 High with BT.709 colour signalling
+
+-- [media-formats/pinpoint-theora-vorbis.ogv]
+Ogg Theora and Vorbis
+
+-- [media-formats/pinpoint-animated.gif]
+Animated GIF
+
+-- [media-formats/pinpoint-av1-opus.webm]
+WebM AV1 Main and Opus
+
+-- [media-formats/pinpoint-av1-aac.mp4]
+MP4 AV1 Main and AAC-LC

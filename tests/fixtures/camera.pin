@@ -1,0 +1,6 @@
+#!/usr/bin/env pinpoint
+[stage-color=black]
+[text-color=white]
+[shading-opacity=0.45]
+-- [camera] [bottom]
+Camera portal test

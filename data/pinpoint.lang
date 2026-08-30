@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of Pinpoint.
+
+ Copyright (C) 2026 Nick Richards
+
+ Pinpoint is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ Pinpoint is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <https://www.gnu.org/licenses/>.
+
+-->
+<language id="pinpoint" name="Pinpoint" version="2.0" _section="Markup">
+  <metadata>
+    <property name="mimetypes">application/x-pinpoint</property>
+    <property name="globs">*.pin</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="defaults" name="Presentation defaults" map-to="def:preprocessor"/>
+    <style id="separator" name="Slide separator" map-to="def:heading"/>
+    <style id="setting" name="Slide setting" map-to="def:type"/>
+    <style id="audience-text" name="Audience text"/>
+    <style id="speaker-note" name="Speaker note" map-to="def:comment"/>
+    <style id="visual-description" name="Visual description" map-to="def:comment"/>
+    <style id="command" name="Command" map-to="def:function"/>
+    <style id="pango-markup" name="Pango markup" map-to="def:keyword"/>
+    <style id="pango-attribute" name="Pango attribute" map-to="def:type"/>
+    <style id="pango-value" name="Pango attribute value" map-to="def:string"/>
+    <style id="escaped-character" name="Escaped character" map-to="def:special-char"/>
+  </styles>
+
+  <definitions>
+    <define-regex id="pango-tag">markup|span|b|big|i|s|sub|sup|small|tt|u</define-regex>
+
+    <context id="pango-attribute-value"
+             style-ref="pango-value"
+             class="string pinpoint-pango-markup pinpoint-pango-value">
+      <start>[&quot;']</start>
+      <end>\%{0@start}</end>
+    </context>
+
+    <context id="pango-attribute"
+             style-ref="pango-attribute"
+             class="pinpoint-pango-attribute">
+      <match>\b[A-Za-z_][A-Za-z0-9_-]*(?=\s*=)</match>
+    </context>
+
+    <context id="pango-tag"
+             style-ref="pango-markup"
+             class="no-spell-check pinpoint-pango-markup">
+      <start>&lt;/?\%{pango-tag}(?=[\s&gt;])</start>
+      <end>&gt;</end>
+      <include>
+        <context ref="pango-attribute-value"/>
+        <context ref="pango-attribute"/>
+      </include>
+    </context>
+
+    <context id="pango-entity"
+             style-ref="pango-markup"
+             class="no-spell-check pinpoint-pango-markup">
+      <match>&amp;(?:amp|apos|gt|lt|quot|#[0-9]+|#x[0-9A-Fa-f]+);</match>
+    </context>
+
+    <context id="escaped-character"
+             style-ref="escaped-character"
+             class="pinpoint-escaped-character">
+      <match>\\.</match>
+    </context>
+
+    <context id="speaker-note"
+             style-ref="speaker-note"
+             class="comment pinpoint-speaker-note">
+      <match>^#.*$</match>
+    </context>
+
+    <context id="visual-description"
+             style-ref="visual-description"
+             class="comment pinpoint-visual-description">
+      <match>^#@alt:.*$</match>
+    </context>
+
+    <context id="command"
+             style-ref="command"
+             class="no-spell-check pinpoint-command">
+      <match>\[command=[^\]\n]*\]</match>
+    </context>
+
+    <context id="setting"
+             style-ref="setting"
+             class="no-spell-check pinpoint-setting">
+      <match>\[[^\]\n]*\]</match>
+    </context>
+
+    <context id="presentation-defaults"
+             style-ref="defaults"
+             class="pinpoint-defaults">
+      <match>^\s*(?:\[[^\]\n]*\])+\s*$</match>
+    </context>
+
+    <context id="slide-separator"
+             style-ref="separator"
+             class="no-spell-check pinpoint-separator">
+      <start>^-+</start>
+      <end>$</end>
+      <include>
+        <context ref="command"/>
+        <context ref="setting"/>
+      </include>
+    </context>
+
+    <context id="audience-text"
+             style-ref="audience-text"
+             class="pinpoint-audience-text">
+      <start>^(?![-#])(?=.)</start>
+      <end>$</end>
+      <include>
+        <context ref="pango-tag"/>
+        <context ref="pango-entity"/>
+        <context ref="escaped-character"/>
+      </include>
+    </context>
+
+    <context id="pinpoint">
+      <include>
+        <context ref="presentation-defaults"/>
+        <context ref="slide-separator"/>
+        <context ref="visual-description"/>
+        <context ref="speaker-note"/>
+        <context ref="audience-text"/>
+      </include>
+    </context>
+  </definitions>
+</language>

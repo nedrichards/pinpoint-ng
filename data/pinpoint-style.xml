@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style-scheme id="Pinpoint" _name="Pinpoint" version="1.0" parent-scheme="Adwaita">
+  <author>Nick Richards</author>
+  <_description>Clear presentation structure for Pinpoint source files</_description>
+  <metadata>
+    <property name="variant">light</property>
+    <property name="dark-variant">Pinpoint-dark</property>
+  </metadata>
+
+  <style name="pinpoint:defaults" foreground="orange_5" bold="true"/>
+  <style name="pinpoint:separator" foreground="blue_4" bold="true"/>
+  <style name="pinpoint:setting" foreground="orange_5" bold="true"/>
+  <style name="pinpoint:command" foreground="blue_4" bold="true"/>
+  <style name="pinpoint:speaker-note" foreground="dark_1" italic="true"/>
+  <style name="pinpoint:visual-description" foreground="dark_1" italic="true"/>
+  <style name="pinpoint:pango-markup" foreground="orange_5"/>
+  <style name="pinpoint:pango-attribute" foreground="blue_4"/>
+  <style name="pinpoint:pango-value" foreground="violet_4"/>
+  <style name="pinpoint:escaped-character" foreground="red_2"/>
+</style-scheme>

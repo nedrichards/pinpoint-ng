@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="com.nedrichards.pinpoint" path="/com/nedrichards/pinpoint/">
+    <key name="welcome-complete" type="b">
+      <default>false</default>
+      <summary>Whether the first-use guidance has been completed</summary>
+      <description>Set after opening a presentation or trying the bundled introduction.</description>
+    </key>
+  </schema>
+</schemalist>

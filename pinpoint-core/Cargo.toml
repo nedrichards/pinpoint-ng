@@ -1,0 +1,26 @@
+[package]
+name = "pinpoint-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "Presentation parsing and rendering primitives for Pinpoint"
+publish = false
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+rustix.workspace = true
+
+[lib]
+name = "pinpoint_core"
+
+[[bin]]
+name = "pinpoint-rust-oracle"
+path = "src/bin/oracle.rs"
+
+[[bin]]
+name = "pinpoint-compare-oracles"
+path = "src/bin/compare_oracles.rs"

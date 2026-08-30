@@ -1,0 +1,17 @@
+[transition-duration=80]
+[transition-easing=ease-out-cubic]
+
+-- [transition=slide] [transition-direction=right]
+Slide all layers
+
+-- [transition=zoom] [transition-layer=background] [transition-mode=in]
+Zoom the background
+
+-- [transition=fade] [transition-layer=text] [transition-mode=both]
+Fade the text
+
+-- [transition=spin] [transition-direction=left] [transition-layer=text]
+Spin the text
+
+-- [transition=flip] [transition-direction=down] [transition-mode=out]
+Flip the slide

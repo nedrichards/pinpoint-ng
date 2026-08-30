@@ -1,0 +1,23 @@
+{
+  "name": "pinpoint-language",
+  "displayName": "Pinpoint language support",
+  "description": "Syntax highlighting and snippets for Pinpoint .pin presentations",
+  "version": "0.1.0",
+  "publisher": "pinpoint",
+  "engines": { "vscode": "^1.84.0" },
+  "categories": ["Programming Languages"],
+  "contributes": {
+    "languages": [{
+      "id": "pinpoint",
+      "aliases": ["Pinpoint", "pinpoint"],
+      "extensions": [".pin"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "pinpoint",
+      "scopeName": "text.pinpoint",
+      "path": "./syntaxes/pinpoint.tmLanguage.json"
+    }],
+    "snippets": [{ "language": "pinpoint", "path": "./snippets/pinpoint.code-snippets" }]
+  }
+}

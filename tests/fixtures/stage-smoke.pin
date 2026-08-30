@@ -1,0 +1,19 @@
+[stage-color=#101820]
+[font=Sans 54px]
+[text-color=white]
+[shading-color=black]
+[shading-opacity=0.55]
+[transition=fade]
+
+-- [#1c3657] [center]
+Pinpoint stage
+<span size="small">retained text and colour</span>
+
+-- [sample.jpg] [fill] [bottom]
+Glycin raster background
+
+-- [sample.svg] [fit] [top]
+librsvg vector background
+
+-- [sample.mp4] [fill] [bottom-right]
+GStreamer video background

@@ -1,0 +1,44 @@
+name: Fuzz
+
+permissions:
+  contents: read
+
+on:
+  push:
+    paths:
+      - 'pinpoint-core/**'
+      - 'fuzz/**'
+      - '.github/workflows/fuzz.yml'
+  pull_request:
+    paths:
+      - 'pinpoint-core/**'
+      - 'fuzz/**'
+      - '.github/workflows/fuzz.yml'
+  schedule:
+    - cron: '43 6 * * 3'
+  workflow_dispatch:
+
+jobs:
+  fuzz:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@6c977a6ca4077a0ceb28ffbe03f59d46e9ac8772
+        with:
+          toolchain: nightly
+      - name: Install pinned cargo-fuzz
+        run: cargo install cargo-fuzz --version 0.13.2 --locked
+      - name: Fuzz presentation parser
+        working-directory: fuzz
+        run: cargo fuzz run presentation -- -max_total_time=60 -max_len=65536
+      - name: Fuzz legacy transitions
+        working-directory: fuzz
+        run: cargo fuzz run legacy_transition -- -max_total_time=60 -max_len=65536
+      - name: Fuzz source analyzer
+        working-directory: fuzz
+        run: cargo fuzz run source_analyzer seeds/source_analyzer -- -max_total_time=60 -max_len=65536
+      - name: Fuzz duration writeback
+        working-directory: fuzz
+        run: cargo fuzz run duration_writeback seeds/duration_writeback -- -max_total_time=60 -max_len=65536

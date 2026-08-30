@@ -1,0 +1,22 @@
+/.flatpak-builder*/
+/build-*/
+/flatpak-build*/
+/flatpak-repo/
+/rustlab-*-build/
+/target/
+/vendor/
+/runtime-assets/
+/Pasted image.png
+/*.syscap
+/desktop-summit/
+/guadec-2018/
+/EVALUATION-RESULTS.md
+/FULL-EXECUTABLE-PLAN.md
+/LANGUAGE-REWRITE-ASSESSMENT.md
+/pinpoint-core/pinpoint-c-oracle
+*.flatpak
+*.profraw
+*.profdata
+/fuzz/artifacts/
+/fuzz/corpus/
+/fuzz/target/

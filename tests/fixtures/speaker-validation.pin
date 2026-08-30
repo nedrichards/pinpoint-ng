@@ -1,0 +1,16 @@
+#!/usr/bin/env pinpoint
+[font=Sans Bold 64px]
+[text-color=white]
+[text-align=center]
+[center]
+[transition=fade]
+[stage-color=#204a87]
+-- [sample.jpg] [fill] [command=true]
+AUDIENCE SLIDE 1
+#Speaker note for slide one
+-- [sample.jpg] [fill]
+AUDIENCE SLIDE 2
+#Speaker note for slide two
+-- [sample.jpg] [fill] [command=false]
+AUDIENCE SLIDE 3
+#Speaker note for slide three

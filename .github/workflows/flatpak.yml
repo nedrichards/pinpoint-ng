@@ -1,0 +1,38 @@
+name: Flatpak
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+
+jobs:
+  flatpak:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-50
+      options: --privileged
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+
+      - name: Verify generated Cargo sources
+        run: |
+          python3 scripts/generate-cargo-sources.py -o /tmp/cargo-sources.json
+          diff -u flatpak/cargo-sources.json /tmp/cargo-sources.json
+
+      - name: Reject production host permissions
+        run: python3 scripts/check-production-manifest.py --self-test
+
+      - name: Build Flatpak
+        uses: flatpak/flatpak-github-actions/flatpak-builder@401fe28a8384095fc1531b9d320b292f0ee45adb # v6.7
+        with:
+          bundle: pinpoint.flatpak
+          manifest-path: com.nedrichards.pinpoint.json
+          cache-key: flatpak-builder-${{ github.sha }}
+          upload-artifact: true

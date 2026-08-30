@@ -1,0 +1,12 @@
+[stage-color=black]
+[font=Sans 60px]
+[command=printf 'defaults loaded\n']
+
+-- [transition=fade]
+Audience <b>bold</b> and <span foreground="yellow">yellow</span> &amp; clear.
+#Speaker note with literal <b>tags</b>.
+#@alt:A bright landscape photograph behind the audience text.
+
+-- [photo.jpg] [fill] [command=printf 'next slide\n']
+Next <i>slide</i>.
+\#This is audience text, not a speaker note.

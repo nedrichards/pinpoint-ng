@@ -1,0 +1,41 @@
+[
+  {
+    "type": "ClutterGroup",
+    "id": "actor"
+  },
+  {
+    "type": "ClutterState",
+    "id": "state",
+    "duration": 1000,
+    "transitions": [
+      {
+        "source": null,
+        "target": "pre",
+        "keys": [
+          ["actor", "x", "linear", 1024],
+          ["actor", "opacity", "linear", 0]
+        ]
+      },
+      {
+        "source": null,
+        "target": "show",
+        "duration": 750,
+        "keys": [
+          ["actor", "x", "easeOutQuad", 0],
+          ["actor", "opacity", "easeOutQuad", 255],
+          ["foreground", "scale-x", "easeOutQuad", 1.5],
+          ["foreground", "scale-y", "easeOutQuad", 1.5]
+        ]
+      },
+      {
+        "source": null,
+        "target": "post",
+        "duration": 1200,
+        "keys": [
+          ["actor", "x", "linear", -512],
+          ["actor", "opacity", "linear", 0]
+        ]
+      }
+    ]
+  }
+]

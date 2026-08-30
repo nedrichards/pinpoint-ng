@@ -1,0 +1,90 @@
+{
+  "app-id": "com.nedrichards.pinpoint.Devel",
+  "desktop-file-name-suffix": " (Development)",
+  "rename-desktop-file": "com.nedrichards.pinpoint.desktop",
+  "rename-appdata-file": "com.nedrichards.pinpoint.metainfo.xml",
+  "rename-icon": "com.nedrichards.pinpoint",
+  "copy-icon": true,
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "50",
+  "sdk": "org.gnome.Sdk",
+  "sdk-extensions": [
+    "org.freedesktop.Sdk.Extension.rust-stable"
+  ],
+  "command": "pinpoint",
+  "finish-args": [
+    "--share=ipc",
+    "--socket=wayland",
+    "--socket=fallback-x11",
+    "--device=dri",
+    "--socket=pulseaudio",
+    "--own-name=org.mpris.MediaPlayer2.com.nedrichards.pinpoint.*"
+  ],
+  "build-options": {
+    "append-path": "/usr/lib/sdk/rust-stable/bin",
+    "env": {
+      "CARGO_HOME": "/app/share/pinpoint/cargo",
+      "CARGO_NET_OFFLINE": "true"
+    }
+  },
+  "cleanup": [
+    "/share/pinpoint/cargo",
+    "/share/doc",
+    "/share/man"
+  ],
+  "modules": [
+    {
+      "name": "cargo-dependencies",
+      "buildsystem": "simple",
+      "build-commands": [
+        "install -d /app/share/pinpoint/cargo",
+        "cp -a cargo/vendor /app/share/pinpoint/cargo/",
+        "install -Dm644 cargo/config.toml /app/share/pinpoint/cargo/config.toml"
+      ],
+      "sources": [
+        "flatpak/cargo-sources.json"
+      ]
+    },
+    {
+      "name": "pinpoint",
+      "buildsystem": "simple",
+      "build-commands": [
+        "cargo fmt --all -- --check",
+        "cargo test --offline --workspace --locked",
+        "cargo clippy --offline --workspace --all-targets --locked -- -D warnings",
+        "cargo build --offline --release --locked -p pinpoint",
+        "install -Dm755 target/release/pinpoint /app/bin/pinpoint",
+        "install -Dm644 data/pinpoint.lang /app/share/gtksourceview-5/language-specs/pinpoint.lang",
+        "install -Dm644 data/pinpoint-style.xml /app/share/gtksourceview-5/styles/pinpoint-style.xml",
+        "install -Dm644 data/pinpoint-dark-style.xml /app/share/gtksourceview-5/styles/pinpoint-dark-style.xml",
+        "install -d /app/share/pinpoint/introduction",
+        "cp -a data/introduction/. /app/share/pinpoint/introduction/",
+        "install -Dm644 pinpoint/data/com.nedrichards.pinpoint.desktop /app/share/applications/com.nedrichards.pinpoint.desktop",
+        "install -Dm644 pinpoint/data/com.nedrichards.pinpoint.metainfo.xml /app/share/metainfo/com.nedrichards.pinpoint.metainfo.xml",
+        "install -Dm644 pinpoint/data/com.nedrichards.pinpoint.gschema.xml /app/share/glib-2.0/schemas/com.nedrichards.pinpoint.gschema.xml",
+        "glib-compile-schemas /app/share/glib-2.0/schemas",
+        "install -Dm644 data/com.nedrichards.pinpoint.svg /app/share/icons/hicolor/scalable/apps/com.nedrichards.pinpoint.svg",
+        "install -Dm644 data/com.nedrichards.pinpoint.xml /app/share/mime/packages/com.nedrichards.pinpoint.xml"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": ".",
+          "skip": [
+            ".git",
+            ".flatpak-builder*",
+            "build-*",
+            "flatpak-build*",
+            "runtime-assets",
+            "target",
+            "vendor",
+            "fuzz",
+            "desktop-summit",
+            "guadec-2018",
+            "*.syscap"
+          ]
+        }
+      ]
+    }
+  ]
+}
