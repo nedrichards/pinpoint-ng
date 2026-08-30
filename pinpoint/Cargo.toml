@@ -20,6 +20,6 @@ gtk.workspace = true
 libc.workspace = true
 sourceview.workspace = true
 pangocairo.workspace = true
-pinpoint-core = { path = "../pinpoint-core" }
+pinpoint-core = { path = "../pinpoint-core", version = "0.3.0" }
 rsvg.workspace = true
 serde_json.workspace = true
