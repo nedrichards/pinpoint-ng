@@ -333,14 +333,14 @@
   {
     "type": "archive",
     "archive-type": "tar-gzip",
-    "url": "https://static.crates.io/crates/cairo-rs/cairo-rs-0.22.0.crate",
-    "sha256": "5cc8d9aa793480744cd9a0524fef1a2e197d9eaa0f739cde19d16aba530dcb95",
-    "dest": "cargo/vendor/cairo-rs-0.22.0"
+    "url": "https://static.crates.io/crates/cairo-rs/cairo-rs-0.22.9.crate",
+    "sha256": "df683f1d30b457964673a5541a4603208ef95ab6873d2a55871895cf310f3b56",
+    "dest": "cargo/vendor/cairo-rs-0.22.9"
   },
   {
     "type": "inline",
-    "contents": "{\"files\": {}, \"package\": \"5cc8d9aa793480744cd9a0524fef1a2e197d9eaa0f739cde19d16aba530dcb95\"}",
-    "dest": "cargo/vendor/cairo-rs-0.22.0",
+    "contents": "{\"files\": {}, \"package\": \"df683f1d30b457964673a5541a4603208ef95ab6873d2a55871895cf310f3b56\"}",
+    "dest": "cargo/vendor/cairo-rs-0.22.9",
     "dest-filename": ".cargo-checksum.json"
   },
   {
