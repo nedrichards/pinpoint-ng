@@ -38,6 +38,13 @@ fn project_vertex(vertex: &mut Vertex, width: f32, height: f32) {
     vertex.y = height / 2.0 + (vertex.y - height / 2.0) * scale;
 }
 
+fn curl_radius(width: f32, height: f32) -> f32 {
+    // The original 50 px radius was tuned for a 640x360 stage. Keep that
+    // proportion as the output grows so the fold remains a continuous sheet
+    // instead of collapsing into only a few mesh columns on large displays.
+    width.min(height) * (50.0 / 360.0)
+}
+
 fn deform_vertex_with_rotation(
     width: f32,
     height: f32,
@@ -144,7 +151,7 @@ pub fn build_mesh_with_tiles(
                     period,
                     cosine,
                     sine,
-                    50.0,
+                    curl_radius(width, height),
                     &mut destination,
                 );
                 project_vertex(&mut destination, width, height);
@@ -239,6 +246,13 @@ mod tests {
         assert_eq!(vertices.len(), 13 * 13);
         assert_eq!(indices.len(), 12 * 12 * 2 * 3);
         assert!(indices.iter().all(|index| *index < vertices.len() as u32));
+    }
+
+    #[test]
+    fn curl_radius_scales_with_the_stage() {
+        assert!((curl_radius(640.0, 360.0) - 50.0).abs() < 0.001);
+        assert!((curl_radius(1280.0, 720.0) - 100.0).abs() < 0.001);
+        assert!((curl_radius(1920.0, 1080.0) - 150.0).abs() < 0.001);
     }
 
     #[test]

@@ -441,8 +441,6 @@ struct ViewState {
     periods: [f64; 2],
     angles: [f64; 2],
     backwards: bool,
-    pending_warmups: Vec<(gdk::Texture, gdk::Texture)>,
-    hide_after_render: bool,
     reported_error: bool,
 }
 
@@ -500,9 +498,9 @@ impl PageCurlView {
                         state.backwards,
                     )
                 };
-                let (result, queued_warmup, hide_after_render) = {
+                let result = {
                     let mut state = state.borrow_mut();
-                    let result = state.renderer.as_mut().map_or_else(
+                    state.renderer.as_mut().map_or_else(
                         || Err("OpenGL renderer is unavailable".to_owned()),
                         |renderer| {
                             renderer.render(
@@ -515,18 +513,7 @@ impl PageCurlView {
                                 area.scale_factor(),
                             )
                         },
-                    );
-                    let queue_next_warmup =
-                        state.hide_after_render && !state.pending_warmups.is_empty();
-                    if queue_next_warmup {
-                        let (previous, current) = state.pending_warmups.remove(0);
-                        state.slides = [Some(previous), Some(current)];
-                    }
-                    let hide_after_render = state.hide_after_render && !queue_next_warmup;
-                    if hide_after_render {
-                        state.hide_after_render = false;
-                    }
-                    (result, queue_next_warmup, hide_after_render)
+                    )
                 };
                 if let Err(error) = result {
                     let mut state = state.borrow_mut();
@@ -534,11 +521,6 @@ impl PageCurlView {
                         eprintln!("PINPOINT PAGE CURL GL failed: {error}");
                         state.reported_error = true;
                     }
-                }
-                if queued_warmup {
-                    area.queue_render();
-                } else if hide_after_render {
-                    area.set_visible(false);
                 }
                 glib::Propagation::Stop
             }
@@ -584,26 +566,34 @@ impl PageCurlView {
     }
 
     pub fn prewarm_textures(&self, pairs: Vec<(gdk::Texture, gdk::Texture)>) {
-        let Some((previous, current)) = pairs.first().cloned() else {
+        if pairs.is_empty() || !self.area.is_realized() {
+            return;
+        }
+        self.area.make_current();
+        if self.area.error().is_some() {
+            return;
+        }
+        let mut state = self.state.borrow_mut();
+        let Some(renderer) = state.renderer.as_mut() else {
             return;
         };
-        let mut state = self.state.borrow_mut();
-        state.slides = [Some(previous), Some(current)];
-        state.periods = [0.0, 0.0];
-        state.angles = [0.0, 0.0];
-        state.backwards = false;
-        state.pending_warmups = pairs.into_iter().skip(1).collect();
-        state.hide_after_render = true;
-        drop(state);
-        self.area.set_visible(true);
-        self.area.queue_render();
+        for (previous, current) in pairs {
+            if let Err(error) = renderer
+                .upload_texture(&previous)
+                .and_then(|_| renderer.upload_texture(&current))
+            {
+                if !state.reported_error {
+                    eprintln!("PINPOINT PAGE CURL prewarm failed: {error}");
+                    state.reported_error = true;
+                }
+                break;
+            }
+        }
     }
 
     pub fn hide(&self) {
         let mut state = self.state.borrow_mut();
         state.slides = [None, None];
-        state.pending_warmups.clear();
-        state.hide_after_render = false;
         drop(state);
         self.area.set_visible(false);
     }
@@ -611,8 +601,6 @@ impl PageCurlView {
     pub fn clear(&self) {
         let mut state = self.state.borrow_mut();
         state.slides = [None, None];
-        state.pending_warmups.clear();
-        state.hide_after_render = false;
         if let Some(renderer) = state.renderer.as_mut() {
             renderer.uploaded_slides = [None, None, None, None];
             renderer.texture_last_used = [0; TEXTURE_SLOTS];
