@@ -692,7 +692,7 @@ pub fn build(
     let title = gtk::Label::new(Some("Open a Presentation"));
     title.add_css_class("title-2");
     let description = gtk::Label::new(Some("Excellent presentations for hackers."));
-    description.add_css_class("dim-label");
+    description.add_css_class("dimmed");
     description.set_wrap(true);
     description.set_justify(gtk::Justification::Center);
     hero.append(&icon);
@@ -706,7 +706,7 @@ pub fn build(
         .subtitle("Choose a folder containing a .pin file and its assets")
         .build();
     let open_icon = gtk::Image::from_icon_name("folder-open-symbolic");
-    open_icon.add_css_class("dim-label");
+    open_icon.add_css_class("dimmed");
     let open = gtk::Button::from_icon_name("go-next-symbolic");
     open.add_css_class("flat");
     open.set_valign(gtk::Align::Center);
@@ -722,7 +722,7 @@ pub fn build(
         .subtitle("Start with a blank slide in the composition editor")
         .build();
     let create_icon = gtk::Image::from_icon_name("document-new-symbolic");
-    create_icon.add_css_class("dim-label");
+    create_icon.add_css_class("dimmed");
     let create = gtk::Button::from_icon_name("go-next-symbolic");
     create.add_css_class("flat");
     create.set_valign(gtk::Align::Center);
@@ -742,7 +742,7 @@ pub fn build(
         .subtitle("A short tour made with Pinpoint")
         .build();
     let introduction_icon = gtk::Image::from_icon_name("help-contents-symbolic");
-    introduction_icon.add_css_class("dim-label");
+    introduction_icon.add_css_class("dimmed");
     let view_introduction = gtk::Button::from_icon_name("media-playback-start-symbolic");
     view_introduction.add_css_class("flat");
     view_introduction.set_valign(gtk::Align::Center);
@@ -788,7 +788,7 @@ pub fn build(
     selected_title.set_justify(gtk::Justification::Center);
     selected_title.set_max_width_chars(34);
     let selected_details = gtk::Label::new(None);
-    selected_details.add_css_class("dim-label");
+    selected_details.add_css_class("dimmed");
     selected_details.set_wrap(true);
     selected_details.set_justify(gtk::Justification::Center);
     selected_details.set_max_width_chars(52);
@@ -895,7 +895,7 @@ pub fn build(
         .subtitle("Open the source and live preview")
         .build();
     let edit_icon = gtk::Image::from_icon_name("document-edit-symbolic");
-    edit_icon.add_css_class("dim-label");
+    edit_icon.add_css_class("dimmed");
     edit_row.add_prefix(&edit_icon);
     edit_row.add_suffix(&edit_selected);
     edit_row.set_activatable_widget(Some(&edit_selected));
@@ -905,7 +905,7 @@ pub fn build(
         .subtitle("Create a portable copy of this presentation")
         .build();
     let export_icon = gtk::Image::from_icon_name("document-save-symbolic");
-    export_icon.add_css_class("dim-label");
+    export_icon.add_css_class("dimmed");
     export_row.add_prefix(&export_icon);
     export_row.add_suffix(&export_selected);
     export_row.set_activatable_widget(Some(&export_selected));

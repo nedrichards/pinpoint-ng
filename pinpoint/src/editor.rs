@@ -255,9 +255,8 @@ impl Editor {
             .hscrollbar_policy(gtk::PolicyType::Never)
             .child(&outline)
             .build();
-        outline_scroll.add_css_class("sidebar");
         let status = gtk::Label::new(Some("Preparing preview…"));
-        status.add_css_class("dim-label");
+        status.add_css_class("dimmed");
         status.set_xalign(0.0);
         let save = gtk::Button::with_label("Save");
         save.set_sensitive(false);
@@ -352,8 +351,12 @@ impl Editor {
         work.set_start_child(Some(&source_scroll));
         work.set_end_child(Some(&preview_frame));
         work.set_position(620);
+        let outline_pane = gtk::Box::new(gtk::Orientation::Horizontal, 0);
+        self.0.outline_scroll.set_hexpand(true);
+        outline_pane.append(&self.0.outline_scroll);
+        outline_pane.append(&gtk::Separator::new(gtk::Orientation::Vertical));
         let outer = gtk::Paned::new(gtk::Orientation::Horizontal);
-        outer.set_start_child(Some(&self.0.outline_scroll));
+        outer.set_start_child(Some(&outline_pane));
         outer.set_end_child(Some(&work));
         outer.set_resize_start_child(false);
         outer.set_position(230);

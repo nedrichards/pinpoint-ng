@@ -184,7 +184,7 @@ fn show_shortcuts(window: &adw::ApplicationWindow) {
     ));
     intro.set_wrap(true);
     intro.set_halign(gtk::Align::Start);
-    intro.add_css_class("dim-label");
+    intro.add_css_class("dimmed");
     content.append(&intro);
 
     add_shortcut_group(
