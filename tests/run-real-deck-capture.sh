@@ -29,7 +29,7 @@ fi
 overall_status=0
 
 flatpak run --user --filesystem="$root" --filesystem="$capture_dir" \
-  --command=sh org.gnome.Sdk//50 -c '
+  --command=sh org.gnome.Sdk//51 -c '
     cc -std=c17 -Wall -Wextra -Werror \
       -I "$1/_build-codex" -I "$1/src" \
       "$2/tests/capture-c-real-slide.c" \
@@ -80,7 +80,7 @@ for presentation in "$@"; do
     fi
     flatpak run --user --device=dri --socket=wayland --socket=fallback-x11 \
       --filesystem="$root" --filesystem="$capture_dir" --command=sh \
-      org.gnome.Sdk//50 -c \
+      org.gnome.Sdk//51 -c \
       'LD_LIBRARY_PATH="$1/src" "$2/capture-c-real-slide" "$3" "$4" "$5"' \
       sh "$c_build" "$capture_dir" "$presentation" "$slide" "$c_capture"
     rust_output=$(flatpak run --user --device=dri --socket=wayland --socket=fallback-x11 \
@@ -91,7 +91,7 @@ for presentation in "$@"; do
     printf '%s\n' "$rust_output" | grep '^PINPOINT REAL CAPTURE PASS '
     set +e
     diff_output=$(flatpak run --user --filesystem="$capture_dir" \
-      --command="$capture_dir/compare-real-deck-pixels" org.gnome.Sdk//50 \
+      --command="$capture_dir/compare-real-deck-pixels" org.gnome.Sdk//51 \
       "$c_capture" "$rust_capture" 2>&1)
     diff_status=$?
     set -e

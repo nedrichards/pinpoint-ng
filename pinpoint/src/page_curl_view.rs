@@ -594,8 +594,6 @@ impl PageCurlView {
     pub fn hide(&self) {
         let mut state = self.state.borrow_mut();
         state.slides = [None, None];
-        drop(state);
-        self.area.set_visible(false);
     }
 
     pub fn clear(&self) {

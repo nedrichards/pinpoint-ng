@@ -15,7 +15,7 @@ fi
 cd "$root"
 
 flatpak run --user --filesystem="$root" --filesystem="$capture_dir" \
-  --command=sh org.gnome.Sdk//50 -c '
+  --command=sh org.gnome.Sdk//51 -c '
     cc -std=c17 -Wall -Wextra -Werror \
       -I "$1/_build" -I "$1/src" \
       "$2/tests/capture-c-page-curl.c" \
@@ -40,7 +40,7 @@ for scale in 1 125 200; do
     rust_capture="$capture_dir/rust-$direction-$scale.png"
     flatpak run --user --device=dri --socket=wayland --socket=fallback-x11 \
       --filesystem="$root" --filesystem="$capture_dir" --command=sh \
-      org.gnome.Sdk//50 -c \
+      org.gnome.Sdk//51 -c \
       'LD_LIBRARY_PATH="$1/_build/src" "$2/capture-c-page-curl" "$3" "$4" "$5" "$6"' \
       sh "$c_root" "$capture_dir" "$width" "$height" "$direction" "$c_capture"
     rust_args="--capture-page-curl=$rust_capture --capture-size=${width}x${height}"
@@ -50,7 +50,7 @@ for scale in 1 125 200; do
     flatpak run --user --device=dri --socket=wayland --socket=fallback-x11 \
       --filesystem="$root" --filesystem="$capture_dir" \
       --env=PATH=/usr/lib/sdk/rust-stable/bin:/usr/bin --command=sh \
-      org.gnome.Sdk//50 -c \
+      org.gnome.Sdk//51 -c \
       'root="$1"
        shift
        cd "$root"
@@ -58,7 +58,7 @@ for scale in 1 125 200; do
       sh "$root" $rust_args
     flatpak run --user --device=dri --socket=wayland --socket=fallback-x11 \
       --filesystem="$capture_dir" --command="$capture_dir/compare-page-curl-pixels" \
-      org.gnome.Sdk//50 "$c_capture" "$rust_capture"
+      org.gnome.Sdk//51 "$c_capture" "$rust_capture"
     printf 'PINPOINT CURL DIFF PASS scale=%s direction=%s\n' "$scale" "$direction"
   done
 done

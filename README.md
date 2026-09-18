@@ -95,7 +95,7 @@ contract.
 
 ## Development
 
-Pinpoint is built reproducibly with the pinned GNOME 50 Flatpak SDK and a
+Pinpoint is built reproducibly with the pinned GNOME 51 Flatpak SDK and a
 locked Rust dependency graph. Build instructions, internal validation gates,
 and the optional C/Rust differential oracle are documented in
 [the development guide](docs/development.md).

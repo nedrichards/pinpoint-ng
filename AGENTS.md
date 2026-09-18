@@ -13,7 +13,7 @@ fixtures and are intentionally ignored.
 
 ## Build and test
 
-Use the pinned GNOME 50 SDK and the Rust stable SDK extension. The release
+Use the pinned GNOME 51 SDK and the Rust stable SDK extension. The release
 Flatpak is the authoritative build. GNOME Builder and display-backed
 development use the sibling `.Devel` manifest so Glycin can identify
 uninstalled Builder runs correctly:

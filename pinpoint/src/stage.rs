@@ -384,7 +384,9 @@ impl Default for Stage {
         offload.set_visible(false);
         offload.set_parent(&stage);
         let curl_view = PageCurlView::new();
-        curl_view.widget().set_visible(false);
+        // Keep the GLArea mapped so its context is realized before texture
+        // prewarming. The custom Stage snapshot only includes this child for
+        // page-curl frames, so it does not draw outside a transition.
         curl_view.widget().set_parent(&stage);
         {
             let mut state = stage.imp().state.borrow_mut();
@@ -469,7 +471,6 @@ impl Stage {
             state.curl_prewarm_scheduled = false;
             if let Some(curl_view) = state.curl_view.as_ref() {
                 curl_view.clear();
-                curl_view.widget().set_visible(false);
             }
         }
         self.update_accessibility();
@@ -1123,7 +1124,6 @@ impl Stage {
                 state.transition = None;
                 if let Some(curl_view) = state.curl_view.as_ref() {
                     curl_view.clear();
-                    curl_view.widget().set_visible(false);
                 }
             } else {
                 let transition_generation = state.transition_generation;
@@ -1134,19 +1134,6 @@ impl Stage {
                     duration,
                     generation: transition_generation,
                 });
-                if let Some(curl_view) = state.curl_view.as_ref() {
-                    let plan = transition_renderer::plan_with_legacy(
-                        &presentation.slides[previous],
-                        &presentation.slides[target],
-                        backwards,
-                        0.0,
-                        old_legacy.as_deref(),
-                        new_legacy.as_deref(),
-                    );
-                    curl_view
-                        .widget()
-                        .set_visible(matches!(plan, TransitionPlan::PageCurl(_)));
-                }
                 generation = Some(transition_generation);
             }
         }

@@ -13,9 +13,9 @@ repository = "https://github.com/nedrichards/pinpoint-ng"
 [workspace.dependencies]
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.140"
-gtk = { package = "gtk4", version = "0.11.4", features = ["gnome_50"] }
+gtk = { package = "gtk4", version = "0.11.4", features = ["v4_24"] }
 sourceview = { package = "sourceview5", version = "0.11.2", features = ["v5_4"] }
-adw = { package = "libadwaita", version = "0.9.2", features = ["v1_9", "gtk_v4_22"] }
+adw = { package = "libadwaita", version = "0.9.2", features = ["v1_10", "gtk_v4_24"] }
 glycin = { version = "3.1.0", features = ["gdk4"] }
 gst = { package = "gstreamer", version = "0.25.3", features = ["v1_26"] }
 rsvg = { package = "librsvg", version = "2.62.3" }

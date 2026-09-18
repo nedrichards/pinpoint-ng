@@ -1,6 +1,6 @@
 # Development workflow
 
-Pinpoint targets the GNOME 50 SDK and Rust 1.97. Generate the locked Cargo
+Pinpoint targets the GNOME 51 SDK and requires Rust 1.97 or newer. Generate the locked Cargo
 sources and build the development Flatpak for display-backed testing:
 
 ```sh
