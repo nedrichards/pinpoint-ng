@@ -271,7 +271,7 @@ impl AssetStore {
                     if !cancellable.is_cancelled() {
                         timeout.remove();
                     }
-                    let image = loaded.map_err(|error| {
+                    let mut image = loaded.map_err(|error| {
                         if cancellable.is_cancelled() {
                             "image load cancelled or timed out".to_owned()
                         } else {

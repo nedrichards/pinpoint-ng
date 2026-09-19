@@ -516,7 +516,7 @@ async fn load_raster(path: &Path, cancellable: &gio::Cancellable) -> Result<Rast
     }
     let mut loader = glycin::Loader::new(gio::File::for_path(path));
     loader.cancellable(cancellable.clone());
-    let image = loader
+    let mut image = loader
         .load()
         .await
         .map_err(|error| format!("cannot decode {}: {error}", path.display()))?;

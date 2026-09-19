@@ -32,8 +32,10 @@ jobs:
       - uses: rustsec/audit-check@69366f33c96575abad1ee0dba8212993eecbe998 # v2.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          # Informational advisories inherited by the latest stable GNOME crates:
-          # fxhash via librsvg -> selectors; paste via librsvg and glycin.
+          # Informational advisories inherited by transitive GNOME/image crates:
+          # fxhash via librsvg -> selectors; paste via glycin-common.
+          # Keep them ignored: no supported first-party remediation exists, and
+          # this prevents scheduled audits from reopening their tracking issues.
           ignore: RUSTSEC-2025-0057,RUSTSEC-2024-0436
 
   policy:
