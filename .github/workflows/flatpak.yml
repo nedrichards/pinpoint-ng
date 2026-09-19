@@ -15,7 +15,10 @@ jobs:
   flatpak:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-51
+      # The upstream actions-images project currently publishes GNOME 50 as
+      # its newest GNOME builder image. flatpak-builder still installs the
+      # manifest-declared GNOME 51 SDK/runtime from Flathub below.
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-50
       options: --privileged
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
