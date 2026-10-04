@@ -50,7 +50,8 @@
       "buildsystem": "simple",
       "build-commands": [
         "cargo fmt --all -- --check",
-        "cargo test --offline --workspace --locked",
+        "cargo test --offline --workspace --locked --exclude pinpoint-core",
+    "cargo test --offline --release --locked -p pinpoint-core",
         "cargo clippy --offline --workspace --all-targets --locked -- -D warnings",
         "cargo build --offline --release --locked -p pinpoint",
         "install -Dm755 target/release/pinpoint /app/bin/pinpoint",

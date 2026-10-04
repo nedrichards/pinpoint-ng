@@ -11,6 +11,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: flatpak-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   flatpak:
     runs-on: ubuntu-latest
@@ -36,7 +40,41 @@ jobs:
       - name: Build Flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@79327416609af08178ad73b352877e51450790b3 # v6.8
         with:
-          bundle: pinpoint.flatpak
-          manifest-path: com.nedrichards.pinpoint.json
+          bundle: Pinpoint-Rust-Devel-${{ github.sha }}-x86_64.flatpak
+          manifest-path: com.nedrichards.pinpoint.Devel.json
           cache-key: flatpak-builder-${{ github.sha }}
-          upload-artifact: true
+          keep-build-dirs: true
+          upload-artifact: false
+
+      - name: Upload development bundle
+        id: upload
+        uses: actions/upload-artifact@v7
+        with:
+          name: Pinpoint-Rust-Devel-${{ github.sha }}-x86_64
+          path: Pinpoint-Rust-Devel-${{ github.sha }}-x86_64.flatpak
+          if-no-files-found: error
+          retention-days: 14
+      - name: Summarize development bundle
+        env:
+          ARTIFACT_URL: ${{ steps.upload.outputs.artifact-url }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          {
+            echo '### Development Flatpak'
+            echo "Download: ${ARTIFACT_URL}"
+            echo "Built checkout: ${GITHUB_SHA}"
+            echo "PR head: ${PR_HEAD}"
+            echo 'Retention: 14 days'
+            echo 'Install after extracting the artifact:'
+            echo '```console'
+            echo "flatpak install --user ./Pinpoint-Rust-Devel-${GITHUB_SHA}-x86_64.flatpak"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Preserve Flatpak test logs
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: flatpak-test-logs-${{ github.sha }}
+          path: .flatpak-builder/build/**/meson-logs/testlog.*
+          if-no-files-found: warn
+          retention-days: 14
