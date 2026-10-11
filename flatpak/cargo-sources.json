@@ -1516,27 +1516,27 @@
   {
     "type": "archive",
     "archive-type": "tar-gzip",
-    "url": "https://static.crates.io/crates/glycin/glycin-4.0.0.crate",
-    "sha256": "dc9bb9cfa3d4db9eab0e2394f0e60fe4071fd31affd1704f2ecccc6bdd24c7b9",
-    "dest": "cargo/vendor/glycin-4.0.0"
+    "url": "https://static.crates.io/crates/glycin/glycin-4.0.2.crate",
+    "sha256": "1a2c4f0b15d8ec7347ba0e67d0c5c80533a7994929f3e02e2801d5b22e8946dc",
+    "dest": "cargo/vendor/glycin-4.0.2"
   },
   {
     "type": "inline",
-    "contents": "{\"files\": {}, \"package\": \"dc9bb9cfa3d4db9eab0e2394f0e60fe4071fd31affd1704f2ecccc6bdd24c7b9\"}",
-    "dest": "cargo/vendor/glycin-4.0.0",
+    "contents": "{\"files\": {}, \"package\": \"1a2c4f0b15d8ec7347ba0e67d0c5c80533a7994929f3e02e2801d5b22e8946dc\"}",
+    "dest": "cargo/vendor/glycin-4.0.2",
     "dest-filename": ".cargo-checksum.json"
   },
   {
     "type": "archive",
     "archive-type": "tar-gzip",
-    "url": "https://static.crates.io/crates/glycin-builtin/glycin-builtin-4.0.0.crate",
-    "sha256": "b801b326426a0ccb61899174b0a08c2316defd323cfe78be9aa6232a2efdfeac",
-    "dest": "cargo/vendor/glycin-builtin-4.0.0"
+    "url": "https://static.crates.io/crates/glycin-builtin/glycin-builtin-4.0.2.crate",
+    "sha256": "2c9179cb8e55f66d0ae3a3234e1afcac77f4aa95b7e879d283955eb9f6c13ce5",
+    "dest": "cargo/vendor/glycin-builtin-4.0.2"
   },
   {
     "type": "inline",
-    "contents": "{\"files\": {}, \"package\": \"b801b326426a0ccb61899174b0a08c2316defd323cfe78be9aa6232a2efdfeac\"}",
-    "dest": "cargo/vendor/glycin-builtin-4.0.0",
+    "contents": "{\"files\": {}, \"package\": \"2c9179cb8e55f66d0ae3a3234e1afcac77f4aa95b7e879d283955eb9f6c13ce5\"}",
+    "dest": "cargo/vendor/glycin-builtin-4.0.2",
     "dest-filename": ".cargo-checksum.json"
   },
   {
@@ -1555,27 +1555,27 @@
   {
     "type": "archive",
     "archive-type": "tar-gzip",
-    "url": "https://static.crates.io/crates/glycin-core/glycin-core-4.0.0.crate",
-    "sha256": "9466e4f18a53312faee414ea85813d6674d4cb5badad059365c4882984b40201",
-    "dest": "cargo/vendor/glycin-core-4.0.0"
+    "url": "https://static.crates.io/crates/glycin-core/glycin-core-4.0.2.crate",
+    "sha256": "6886f3ab6bf3a35879287f875e76dca58df050879854fabfecadcd6add1b0545",
+    "dest": "cargo/vendor/glycin-core-4.0.2"
   },
   {
     "type": "inline",
-    "contents": "{\"files\": {}, \"package\": \"9466e4f18a53312faee414ea85813d6674d4cb5badad059365c4882984b40201\"}",
-    "dest": "cargo/vendor/glycin-core-4.0.0",
+    "contents": "{\"files\": {}, \"package\": \"6886f3ab6bf3a35879287f875e76dca58df050879854fabfecadcd6add1b0545\"}",
+    "dest": "cargo/vendor/glycin-core-4.0.2",
     "dest-filename": ".cargo-checksum.json"
   },
   {
     "type": "archive",
     "archive-type": "tar-gzip",
-    "url": "https://static.crates.io/crates/glycin-external/glycin-external-4.0.0.crate",
-    "sha256": "a7d335778b14437e1339d703afd1ce69e61df8ab5420882b4b7821b9a2ca9d4a",
-    "dest": "cargo/vendor/glycin-external-4.0.0"
+    "url": "https://static.crates.io/crates/glycin-external/glycin-external-4.0.2.crate",
+    "sha256": "b3b3161e8473d47f45656e8fb32903f8a29e0bd2e97e631443b4f8b15b864ef0",
+    "dest": "cargo/vendor/glycin-external-4.0.2"
   },
   {
     "type": "inline",
-    "contents": "{\"files\": {}, \"package\": \"a7d335778b14437e1339d703afd1ce69e61df8ab5420882b4b7821b9a2ca9d4a\"}",
-    "dest": "cargo/vendor/glycin-external-4.0.0",
+    "contents": "{\"files\": {}, \"package\": \"b3b3161e8473d47f45656e8fb32903f8a29e0bd2e97e631443b4f8b15b864ef0\"}",
+    "dest": "cargo/vendor/glycin-external-4.0.2",
     "dest-filename": ".cargo-checksum.json"
   },
   {
