@@ -3,13 +3,19 @@ set -eu
 
 app_id=com.nedrichards.pinpoint
 root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
-smoke=$root/tests/fixtures/stage-smoke.pin
+run_tmp=$(mktemp -d -t pinpoint-stage-XXXXXX)
+trap 'rm -rf "$run_tmp"' EXIT HUP TERM
+cp "$root/tests/fixtures/stage-smoke.pin" "$run_tmp/stage-smoke.pin"
+cp "$root/data/introduction/bg.jpg" "$run_tmp/sample.jpg"
+cp "$root/tests/fixtures/svg-quality.svg" "$run_tmp/sample.svg"
+cp "$root/tests/fixtures/media-formats/pinpoint-h264-high.mp4" "$run_tmp/sample.mp4"
+smoke=$run_tmp/stage-smoke.pin
 pixels=$root/tests/fixtures/pixel-reference.pin
 
-flatpak run --user --device=dri --socket=wayland --socket=fallback-x11 --filesystem="$root":ro \
+flatpak run --user --device=dri --socket=wayland --socket=fallback-x11 --filesystem="$root":ro --filesystem="$run_tmp":ro \
   "$app_id" --check "$smoke"
 
-stage_output=$(flatpak run --user --device=dri --socket=wayland --socket=fallback-x11 --filesystem="$root":ro \
+stage_output=$(flatpak run --user --device=dri --socket=wayland --socket=fallback-x11 --filesystem="$root":ro --filesystem="$run_tmp":ro \
   "$app_id" --validate-stage "$smoke" 2>&1)
 printf '%s\n' "$stage_output"
 stage_line=$(printf '%s\n' "$stage_output" | grep '^PINPOINT STAGE PASS ')

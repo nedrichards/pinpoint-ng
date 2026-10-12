@@ -4,6 +4,8 @@ Dependency updates are proposed weekly by Dependabot for GitHub Actions and appl
 
 The required source and Flatpak jobs retain the repository's application-specific tests. Development artifacts have a separate .Devel identity, a checkout SHA, a 14-day lifetime, and an installation command in the summary. SDK/build success does not establish hardware, live-service, portal, compositor, or multi-monitor behaviour; keep the existing manual and installed-app gates in the release process.
 
+After a failed Dependabot Cargo build, the Cargo sources workflow regenerates `flatpak/cargo-sources.json` with the default branch's generator and dispatches a Flatpak build for the repaired branch. Dispatch also runs when the generated sources already match, so rerunning the repair workflow can recover a previously failed dispatch.
+
 ## Releases
 
 Dispatch `Publish Release Flatpaks` from the default branch with an existing `vX.Y.Z` tag. The tag must be an ancestor of that checkout. The workflow uses `com.nedrichards.pinpoint.json` and verifies its source. A pinned production manifest must match the tag exactly; a local-source manifest is read from the tag and converted to an exact Git commit in a temporary build manifest. Both x86_64 and aarch64 builds must pass before publication, with SHA256SUMS. Existing releases are never overwritten.
