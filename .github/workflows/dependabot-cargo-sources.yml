@@ -57,4 +57,9 @@ jobs:
           git -C update add -- flatpak/cargo-sources.json
           git -C update commit -m 'chore(deps): regenerate Flatpak Cargo sources'
           git -C update push origin "HEAD:${TARGET_BRANCH}"
-          gh workflow run flatpak.yml --ref "${TARGET_BRANCH}"
+
+      - name: Validate repaired Dependabot branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_BRANCH: ${{ github.event.workflow_run.head_branch }}
+        run: gh workflow run flatpak.yml --repo "$GITHUB_REPOSITORY" --ref "${TARGET_BRANCH}"
