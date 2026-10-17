@@ -2,7 +2,6 @@
 /build-*/
 /flatpak-build*/
 /flatpak-repo/
-/rustlab-*-build/
 /target/
 /vendor/
 /runtime-assets/
@@ -20,3 +19,4 @@
 /fuzz/artifacts/
 /fuzz/corpus/
 /fuzz/target/
+/_build*/

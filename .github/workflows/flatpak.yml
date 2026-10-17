@@ -44,6 +44,7 @@ jobs:
           manifest-path: com.nedrichards.pinpoint.Devel.json
           cache-key: flatpak-builder-${{ github.sha }}
           keep-build-dirs: true
+          run-tests: true
           upload-artifact: false
 
       - name: Upload development bundle

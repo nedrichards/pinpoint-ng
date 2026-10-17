@@ -2,7 +2,8 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
-c_root=${PINPOINT_C_SOURCE:-"$root/../fun-pinpoint"}
+c_root=$(CDPATH= cd -- "${PINPOINT_C_SOURCE:-"$root/../fun-pinpoint"}" && pwd)
+app_id=${PINPOINT_APP_ID:-com.nedrichards.pinpoint}
 capture_dir=$(mktemp -d /tmp/pinpoint-curl-diff.XXXXXX)
 trap 'rm -rf "$capture_dir"' EXIT HUP INT TERM
 
@@ -14,7 +15,7 @@ fi
 
 cd "$root"
 
-flatpak run --user --filesystem="$root" --filesystem="$capture_dir" \
+flatpak run --user --filesystem="$root":ro --filesystem="$c_root":ro --filesystem="$capture_dir" \
   --command=sh org.gnome.Sdk//51 -c '
     cc -std=c17 -Wall -Wextra -Werror \
       -I "$1/_build" -I "$1/src" \
@@ -39,23 +40,16 @@ for scale in 1 125 200; do
     c_capture="$capture_dir/c-$direction-$scale.png"
     rust_capture="$capture_dir/rust-$direction-$scale.png"
     flatpak run --user --device=dri --socket=wayland --socket=fallback-x11 \
-      --filesystem="$root" --filesystem="$capture_dir" --command=sh \
+      --filesystem="$c_root":ro --filesystem="$capture_dir" --command=sh \
       org.gnome.Sdk//51 -c \
       'LD_LIBRARY_PATH="$1/_build/src" "$2/capture-c-page-curl" "$3" "$4" "$5" "$6"' \
       sh "$c_root" "$capture_dir" "$width" "$height" "$direction" "$c_capture"
-    rust_args="--capture-page-curl=$rust_capture --capture-size=${width}x${height}"
+    set -- "--capture-page-curl=$rust_capture" "--capture-size=${width}x${height}"
     if [ "$direction" = backward ]; then
-      rust_args="$rust_args --capture-backward"
+      set -- "$@" --capture-backward
     fi
     flatpak run --user --device=dri --socket=wayland --socket=fallback-x11 \
-      --filesystem="$root" --filesystem="$capture_dir" \
-      --env=PATH=/usr/lib/sdk/rust-stable/bin:/usr/bin --command=sh \
-      org.gnome.Sdk//51 -c \
-      'root="$1"
-       shift
-       cd "$root"
-       cargo run --offline -p pinpoint -- "$@"' \
-      sh "$root" $rust_args
+      --filesystem="$capture_dir" "$app_id" "$@"
     flatpak run --user --device=dri --socket=wayland --socket=fallback-x11 \
       --filesystem="$capture_dir" --command="$capture_dir/compare-page-curl-pixels" \
       org.gnome.Sdk//51 "$c_capture" "$rust_capture"

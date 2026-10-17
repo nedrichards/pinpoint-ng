@@ -47,31 +47,13 @@
     },
     {
       "name": "pinpoint",
-      "buildsystem": "simple",
-      "build-commands": [
-        "cargo fmt --all -- --check",
-        "cargo test --offline --workspace --locked --exclude pinpoint-core",
-    "cargo test --offline --release --locked -p pinpoint-core",
-        "cargo clippy --offline --workspace --all-targets --locked -- -D warnings",
-        "cargo build --offline --release --locked -p pinpoint",
-        "install -Dm755 target/release/pinpoint /app/bin/pinpoint",
-        "install -Dm644 data/pinpoint.lang /app/share/gtksourceview-5/language-specs/pinpoint.lang",
-        "install -Dm644 data/pinpoint-style.xml /app/share/gtksourceview-5/styles/pinpoint-style.xml",
-        "install -Dm644 data/pinpoint-dark-style.xml /app/share/gtksourceview-5/styles/pinpoint-dark-style.xml",
-        "install -d /app/share/pinpoint/introduction",
-        "cp -a data/introduction/. /app/share/pinpoint/introduction/",
-        "install -Dm644 pinpoint/data/com.nedrichards.pinpoint.desktop /app/share/applications/com.nedrichards.pinpoint.desktop",
-        "install -Dm644 pinpoint/data/com.nedrichards.pinpoint.metainfo.xml /app/share/metainfo/com.nedrichards.pinpoint.metainfo.xml",
-        "install -Dm644 pinpoint/data/com.nedrichards.pinpoint.gschema.xml /app/share/glib-2.0/schemas/com.nedrichards.pinpoint.gschema.xml",
-        "glib-compile-schemas /app/share/glib-2.0/schemas",
-        "install -Dm644 data/com.nedrichards.pinpoint.svg /app/share/icons/hicolor/scalable/apps/com.nedrichards.pinpoint.svg",
-        "install -Dm644 data/com.nedrichards.pinpoint.xml /app/share/mime/packages/com.nedrichards.pinpoint.xml"
-      ],
+      "buildsystem": "meson",
       "sources": [
         {
           "type": "dir",
           "path": ".",
           "skip": [
+            "flatpak-repo",
             ".git",
             ".flatpak-builder*",
             "build-*",
@@ -82,10 +64,16 @@
             "fuzz",
             "desktop-summit",
             "guadec-2018",
-            "*.syscap"
+            "*.syscap",
+            "_build*"
           ]
         }
-      ]
+      ],
+      "builddir": true,
+      "config-opts": [
+        "-Dbuildtype=release"
+      ],
+      "run-tests": true
     }
   ]
 }

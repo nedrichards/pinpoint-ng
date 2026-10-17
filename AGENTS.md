@@ -20,16 +20,49 @@ uninstalled Builder runs correctly:
 
 ```sh
 python3 scripts/generate-cargo-sources.py
-flatpak-builder --user --force-clean flatpak-build com.nedrichards.pinpoint.json
-flatpak-builder --run flatpak-build com.nedrichards.pinpoint.json pinpoint --version
-flatpak-builder --user --force-clean flatpak-build-devel \
-  com.nedrichards.pinpoint.Devel.json
+./scripts/local-flatpak.sh
+flatpak run --user com.nedrichards.pinpoint --version
+./scripts/local-flatpak.sh development
 ```
 
-Run `cargo test --workspace --locked`, `cargo clippy --workspace --all-targets
---locked -- -D warnings`, and `cargo fmt --all -- --check` in that SDK
-environment. Run the relevant installed-app script in `tests/` for changes to
-rendering, media, lifecycle, PDF, setup, editor, or display handling.
+Meson orchestrates Cargo builds, tests, Clippy and formatting. Run
+`meson compile -C <build-directory>` and
+`meson test -C <build-directory> --print-errorlogs` in the configured SDK
+environment. Every invocation must use the same Meson-owned
+`CARGO_TARGET_DIR=<build-directory>/target` and inherited Cargo home. Application
+builds, tests and Clippy share the selected Cargo profile; core tests always
+use release mode for their performance gate. Keep GNOME Builder development
+and manifest-driven Flatpak contexts separate; do not run bare Cargo commands
+that create a checkout `target/` cache. Run the relevant installed-app script in
+`tests/` for changes to rendering, media, lifecycle, PDF, setup, editor, or display handling.
+
+## Local Flatpak build storage
+
+Use `./scripts/local-flatpak.sh` for production builds and updates, or
+`./scripts/local-flatpak.sh development` for the separate `.Devel` app.
+Use the normal manifests and keep their test gates enabled.
+
+- Keep the durable update repository at `flatpak-repo/`. Never place it under
+  `.flatpak-builder/` or another disposable build/cache directory.
+- Use `.flatpak-builder/` for Builder state and `.flatpak-builder/staging` as
+  the single staging location for both profiles. Build sequentially. Do not
+  create per-task, per-validation or timestamped build/state/repository trees.
+- Use `--delete-build-dirs` and clean module working directories and staging
+  after success, failure and ordinary interruption, as the script does. Keep
+  the reusable cache and downloads. Do not use `--keep-build-dirs` for routine
+  automated builds. Debug retention needs an explicit task-specific reason
+  and cleanup when finished.
+- Do not run GNOME Builder or raw Builder commands concurrently with the
+  script. Interactive GNOME Builder development remains supported via the
+  `.Devel` manifest; prefer the script for automated validation and deployment.
+- Keep directory-source `skip` lists excluding generated build directories,
+  `target`, `.flatpak-builder*` and `flatpak-repo`, so artifacts are not copied
+  into subsequent builds.
+- Verify the installed app and its update origin after deployment. Never
+  re-export an installed `export/` directory.
+
+There is no enforced storage budget. Do not change Rust incremental/debug
+settings as part of storage housekeeping without a separate request.
 
 ## Style and changes
 

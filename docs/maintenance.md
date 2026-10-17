@@ -12,6 +12,6 @@ Dispatch `Publish Release Flatpaks` from the default branch with an existing `vX
 
 GitHub bundles are sideloadable packages. Flathub updates continue through the Flathub repository review process. This workflow does not submit to or publish on Flathub.
 
-The deterministic core suite runs with `cargo test --release -p pinpoint-core`, including the existing 600-mesh/900 ms performance gate. Application tests run separately in the normal test profile; together they cover the entire workspace. Format and Clippy remain required.
+The deterministic core suite runs with `cargo test --release -p pinpoint-core`, including the existing 600-mesh/900 ms performance gate. Application tests and Clippy use the same Cargo profile and target directory as the Meson application build; together the two test suites cover the entire workspace. Format and Clippy remain required.
 
 GitHub repository settings also enable dependency vulnerability alerts, Dependabot security updates, and weekly CodeQL default setup. Security updates propose pull requests; they do not merge them or publish app releases. The default CodeQL configuration lives in GitHub settings, alongside these versioned maintenance workflows.

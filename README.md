@@ -31,6 +31,12 @@ repositories are based on in jokes from the team about terrible names for forks
 of open source code and are meant with love.
 
 
+## Local builds
+
+Build, test and update the installed local Flatpak with `./scripts/local-flatpak.sh`.
+See [local build and update instructions](docs/local-flatpak.md) for the development
+profile, build cleanup and durable update repository.
+
 ## Using Pinpoint
 
 Like all pinpoint you can use a full featured CLI. This expression also comes with a UI where
