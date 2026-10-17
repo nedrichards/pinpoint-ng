@@ -5,6 +5,10 @@ app_id=com.nedrichards.pinpoint
 root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 run_tmp=$(mktemp -d -t pinpoint-setup-XXXXXX)
 trap 'rm -rf "$run_tmp"' EXIT HUP INT TERM
+cp "$root/tests/fixtures/stage-smoke.pin" "$run_tmp/stage-smoke.pin"
+cp "$root/data/introduction/bg.jpg" "$run_tmp/sample.jpg"
+cp "$root/tests/fixtures/svg-quality.svg" "$run_tmp/sample.svg"
+cp "$root/tests/fixtures/media-formats/pinpoint-h264-high.mp4" "$run_tmp/sample.mp4"
 
 output=$(flatpak run --user "$app_id" --validate-setup 2>&1)
 printf '%s\n' "$output"
@@ -14,8 +18,8 @@ printf '%s\n' "$output" | grep -q \
 flatpak run --user "$app_id" --help >"$run_tmp/help"
 grep -q '^--check ' "$run_tmp/help"
 
-flatpak run --user --filesystem="$root":ro "$app_id" --check \
-  "$root/tests/fixtures/stage-smoke.pin" >"$run_tmp/check.out"
+flatpak run --user --filesystem="$run_tmp":ro "$app_id" --check \
+  "$run_tmp/stage-smoke.pin" >"$run_tmp/check.out"
 grep -q ': 4 slides$' "$run_tmp/check.out"
 
 if flatpak run --user --filesystem="$root":ro "$app_id" \
