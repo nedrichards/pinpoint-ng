@@ -65,7 +65,9 @@
             "desktop-summit",
             "guadec-2018",
             "*.syscap",
-            "_build*"
+            "_build*",
+            "build-ci",
+            ".ci-results"
           ]
         }
       ],

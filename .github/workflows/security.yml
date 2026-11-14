@@ -38,6 +38,7 @@ jobs:
           # this prevents scheduled audits from reopening their tracking issues.
           ignore: RUSTSEC-2025-0057,RUSTSEC-2024-0436
 
+    timeout-minutes: 30
   policy:
     runs-on: ubuntu-latest
     steps:
@@ -48,3 +49,7 @@ jobs:
         with:
           rust-version: '1.97.0'
           command: check bans licenses sources
+    timeout-minutes: 30
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true

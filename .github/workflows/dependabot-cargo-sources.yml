@@ -63,3 +63,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TARGET_BRANCH: ${{ github.event.workflow_run.head_branch }}
         run: gh workflow run flatpak.yml --repo "$GITHUB_REPOSITORY" --ref "${TARGET_BRANCH}"
+    timeout-minutes: 30
