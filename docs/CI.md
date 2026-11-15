@@ -19,3 +19,8 @@ Workflow syntax and shell snippets are checked locally before publication. Hoste
 execution provides the architecture and installed-artifact evidence; generated
 captures still require human visual review. No release or tag is created by this
 maintenance change.
+
+The native ARM64 build caught hard-coded signed bytes in OpenGL diagnostic
+buffers. They now use the existing FFI `c_char` type, matching the platform ABI
+on both architectures. Build, Clippy, source tests and installed pixel/stage
+validation remain enabled.

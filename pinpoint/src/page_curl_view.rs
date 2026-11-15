@@ -116,7 +116,7 @@ impl Renderer {
             let mut status = 0;
             epoxy_glGetShaderiv(shader, GL_COMPILE_STATUS, &mut status);
             if status == 0 {
-                let mut log = [0_i8; 1024];
+                let mut log: [c_char; 1024] = [0; 1024];
                 epoxy_glGetShaderInfoLog(
                     shader,
                     log.len() as c_int,
@@ -207,7 +207,7 @@ impl Renderer {
             let mut status = 0;
             epoxy_glGetProgramiv(program, GL_LINK_STATUS, &mut status);
             if status == 0 {
-                let mut log = [0_i8; 1024];
+                let mut log: [c_char; 1024] = [0; 1024];
                 epoxy_glGetProgramInfoLog(
                     program,
                     log.len() as c_int,
