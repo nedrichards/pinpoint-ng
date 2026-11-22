@@ -4129,14 +4129,14 @@
   {
     "type": "archive",
     "archive-type": "tar-gzip",
-    "url": "https://static.crates.io/crates/url/url-2.5.8.crate",
-    "sha256": "ff67a8a4397373c3ef660812acab3268222035010ab8680ec4215f38ba3d0eed",
-    "dest": "cargo/vendor/url-2.5.8"
+    "url": "https://static.crates.io/crates/url/url-2.5.9.crate",
+    "sha256": "f00cd2407bb42c0ef17be88d4cf020f5cceffd121665bac9b8b9493a369b3b1a",
+    "dest": "cargo/vendor/url-2.5.9"
   },
   {
     "type": "inline",
-    "contents": "{\"files\": {}, \"package\": \"ff67a8a4397373c3ef660812acab3268222035010ab8680ec4215f38ba3d0eed\"}",
-    "dest": "cargo/vendor/url-2.5.8",
+    "contents": "{\"files\":{},\"package\":\"f00cd2407bb42c0ef17be88d4cf020f5cceffd121665bac9b8b9493a369b3b1a\"}",
+    "dest": "cargo/vendor/url-2.5.9",
     "dest-filename": ".cargo-checksum.json"
   },
   {
