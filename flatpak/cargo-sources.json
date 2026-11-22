@@ -4135,7 +4135,7 @@
   },
   {
     "type": "inline",
-    "contents": "{\"files\":{},\"package\":\"f00cd2407bb42c0ef17be88d4cf020f5cceffd121665bac9b8b9493a369b3b1a\"}",
+    "contents": "{\"files\": {}, \"package\": \"f00cd2407bb42c0ef17be88d4cf020f5cceffd121665bac9b8b9493a369b3b1a\"}",
     "dest": "cargo/vendor/url-2.5.9",
     "dest-filename": ".cargo-checksum.json"
   },
